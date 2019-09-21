@@ -1,2 +1,9 @@
 #VIMFILES
 *~
+
+#CLASSFILES
+*.class
+
+#FREAKING ECLIPSE
+*.classpath
+*.project
