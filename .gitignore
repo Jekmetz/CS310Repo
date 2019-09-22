@@ -2,7 +2,7 @@
 *~
 
 #CLASSFILES
-*.class
+bin/
 
 #FREAKING ECLIPSE
 *.classpath

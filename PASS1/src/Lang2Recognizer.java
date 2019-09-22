@@ -6,7 +6,11 @@ public class Lang2Recognizer extends LanguageRecognizer{
 	 *	<DIGIT> ->  0 | 1 | 2 | … | 9|
 	 *	<ID> 	->  a | b 
 	 */
-	public Lang2Recognizer() { super(); }
+	public Lang2Recognizer() 
+	{ 
+		super(); 
+		setName("Language 2");
+	}
 
 	@Override
 	public boolean analyzeSentence() { return ASSGN(); }
