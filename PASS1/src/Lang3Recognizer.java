@@ -11,16 +11,81 @@ public class Lang3Recognizer extends LanguageRecognizer{
 	 *  <S> -> <A>a<B>b
 	 *  <A> -> b<A1>
 	 *  <A1>-> b<A1> | null
-	 *  <B> -> a<B>  | null
+	 *  <B> -> a<B>  | a
 	 */
 	public Lang3Recognizer() 
 	{ 
-		
+		super();
+		setName("Language 3");
 	}
 
 	@Override
 	public boolean analyzeSentence() {
-		// TODO Auto-generated method stub
-		return false;
+		return S();
+	}
+	
+	private boolean S()
+	{
+		try
+		{
+			if(!A())
+				return false;
+			if(getCurrentToken() != 'a')
+				return false;
+			getNextToken();
+			if(!B())
+				return false;
+			if(getCurrentToken() != 'b')
+				return false;
+			getNextToken();
+			if(isEndOfSentence())
+				return true;
+			else 
+				return false;
+		}
+		catch (EndOfSentenceException ex)
+		{
+			return false;
+		}
+	}
+	
+	private boolean A() throws EndOfSentenceException
+	{
+		if (getCurrentToken() == 'b')
+		{
+			getNextToken();
+			if (A1())
+				return true;
+			if (isEndOfSentence())
+				return true;
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean A1() throws EndOfSentenceException
+	{
+		if (getCurrentToken() == 'b')
+		{
+			getNextToken();
+			if (A1())
+				return true;
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean B() throws EndOfSentenceException
+	{
+		if (getCurrentToken() == 'a')
+		{
+			getNextToken();
+			if (isEndOfSentence())
+				return true;
+			if (A())
+				return true;
+			return false;
+		}
+		return true;
 	}
 }

@@ -19,7 +19,7 @@ public class LanguageTester {
 		LanguageRecognizer[] recognizers = {
 				// new Lang1Recognizer(),
 				new Lang2Recognizer(),
-				// new Lang3Recognizer(),
+				new Lang3Recognizer(),
 		};
 
 		// REPL vars
