@@ -17,7 +17,7 @@ public class LanguageTester {
 		 * TODO: UNCOMMENT LANG1 AND LANG2 RECOGNIZERS WHEN IMPLEMENTED
 		 */
 		LanguageRecognizer[] recognizers = {
-				// new Lang1Recognizer(),
+				new Lang1Recognizer(),
 				new Lang2Recognizer(),
 				new Lang3Recognizer(),
 		};
