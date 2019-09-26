@@ -156,7 +156,7 @@ public class LanguageTester {
 
 		while (cont) {
 			for (int i = 0; i < arr.length; i++)
-				System.out.print("[" + (i + 1) + "] " + arr[i].getName() + "\n"); // [1] Language 1\n[2] Language 2\n...
+				System.out.print("[" + (i + 1) + "] " + arr[i].getName() + "\n\n"); // [1] Language 1\n[2] Language 2\n...
 
 			System.out.print("Please input the number of the language you would like.\ngetnumber>> ");
 
@@ -165,7 +165,7 @@ public class LanguageTester {
 			if (langIndex >= 0 && langIndex < arr.length) // validate input
 				cont = false;
 			else
-				System.out.println("The index '" + (langIndex + 1) + "' is not valid. Make sure it exists in the list!!");
+				System.out.println("The index '" + (langIndex + 1) + "' is not valid. Make sure it exists in the list!!\n");
 		}
 
 		return langIndex;
@@ -209,7 +209,7 @@ public class LanguageTester {
 		boolean cont = true;
 
 		while (cont) {
-			System.out.print("Type in a sentence you would like tested or type 'back' to quit.\n" + recognizer.getName()
+			System.out.print("\nType in a sentence you would like tested or type 'back' to quit.\n" + recognizer.getName()
 					+ ">> ");
 			cmd = instream.nextLine();
 

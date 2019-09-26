@@ -34,7 +34,7 @@ public abstract class LanguageRecognizer {
 	 * @return: true if the current character is past the last one in the sentence
 	 */
 	protected boolean isEndOfSentence() {
-		return curIndex == sentence.length();
+		return curIndex >= sentence.length();
 	}
 
 	/**
