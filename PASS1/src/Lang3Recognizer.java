@@ -1,5 +1,3 @@
-
-
 public class Lang3Recognizer extends LanguageRecognizer{
 	
 	/*  GRAMMAR 3 : 
@@ -38,10 +36,9 @@ public class Lang3Recognizer extends LanguageRecognizer{
 			if(getCurrentToken() != 'b')
 				return false;
 			getNextToken();
-			if(isEndOfSentence())
+			if (isEndOfSentence())
 				return true;
-			else 
-				return false;
+			return false;
 		}
 		catch (EndOfSentenceException ex)
 		{
@@ -56,8 +53,6 @@ public class Lang3Recognizer extends LanguageRecognizer{
 			getNextToken();
 			if (A1())
 				return true;
-			if (isEndOfSentence())
-				return true;
 			return false;
 		}
 		return true;
@@ -68,9 +63,8 @@ public class Lang3Recognizer extends LanguageRecognizer{
 		if (getCurrentToken() == 'b')
 		{
 			getNextToken();
-			if (A1())
-				return true;
-			return false;
+			if (!A1())
+				return false;
 		}
 		return true;
 	}
@@ -80,12 +74,10 @@ public class Lang3Recognizer extends LanguageRecognizer{
 		if (getCurrentToken() == 'a')
 		{
 			getNextToken();
-			if (isEndOfSentence())
+			if (!B())
 				return true;
-			if (A())
-				return true;
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 }
