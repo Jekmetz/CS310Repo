@@ -112,7 +112,7 @@ public class LanguageTester {
 			/*******************/
 		}
 
-		System.out.println("Thank you for using this lovely lanaguage recognizer and have a splendiferous day!");
+		System.out.println("Thank you for using this lovely language recognizer and have a splendiferous day!");
 
 		scanner.close();
 	}
@@ -156,8 +156,9 @@ public class LanguageTester {
 
 		while (cont) {
 			for (int i = 0; i < arr.length; i++)
-				System.out.print("[" + (i + 1) + "] " + arr[i].getName() + "\n\n"); // [1] Language 1\n[2] Language 2\n...
-
+				System.out.print("[" + (i + 1) + "] " + arr[i].getName() + "\n"); // [1] Language 1\n[2] Language 2\n...
+			System.out.println();
+			
 			System.out.print("Please input the number of the language you would like.\ngetnumber>> ");
 
 			langIndex = inStream.nextInt() - 1;
