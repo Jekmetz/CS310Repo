@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LanguageTester {
@@ -155,18 +156,25 @@ public class LanguageTester {
 		}
 
 		while (cont) {
-			for (int i = 0; i < arr.length; i++)
-				System.out.print("[" + (i + 1) + "] " + arr[i].getName() + "\n"); // [1] Language 1\n[2] Language 2\n...
-			System.out.println();
-			
-			System.out.print("Please input the number of the language you would like.\ngetnumber>> ");
+			try{
 
-			langIndex = inStream.nextInt() - 1;
+				for (int i = 0; i < arr.length; i++)
+					System.out.print("[" + (i + 1) + "] " + arr[i].getName() + "\n"); // [1] Language 1\n[2] Language 2\n...
+				System.out.println();
+				
+				System.out.print("Please input the number of the language you would like.\ngetnumber>> ");
 
-			if (langIndex >= 0 && langIndex < arr.length) // validate input
-				cont = false;
-			else
-				System.out.println("The index '" + (langIndex + 1) + "' is not valid. Make sure it exists in the list!!\n");
+				langIndex = inStream.nextInt() - 1;
+
+				if (langIndex >= 0 && langIndex < arr.length) // validate input
+					cont = false;
+				else
+					System.out.println("The index '" + (langIndex + 1) + "' is not valid. Make sure it exists in the list!!\n");
+			}catch(InputMismatchException e)
+			{
+				System.out.println("Please select a number!\n");
+				inStream.nextLine();
+			}
 		}
 
 		return langIndex;

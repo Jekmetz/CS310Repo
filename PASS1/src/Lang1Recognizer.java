@@ -38,13 +38,13 @@ public class Lang1Recognizer extends LanguageRecognizer {
 			if(getCurrentToken() == 'b')
 			{
 				getNextToken();
+				if(isEndOfSentence()) return true;
 				if(getCurrentToken() == 'c')
 				{
 					getNextToken();
 					if(!B()) return false;
 					if(isEndOfSentence()) return true;
 				}
-				if(isEndOfSentence()) return true;
 				return false;
 			} else if(getCurrentToken() == 'a')
 			{
@@ -57,9 +57,9 @@ public class Lang1Recognizer extends LanguageRecognizer {
 				if(getCurrentToken() == 'c')
 				{
 					getNextToken();
+					if(isEndOfSentence()) return true;
 					if(B())
 						if(isEndOfSentence()) return true;
-					if(isEndOfSentence()) return true;
 					return false;
 				}
 			}
