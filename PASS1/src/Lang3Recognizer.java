@@ -3,13 +3,13 @@ public class Lang3Recognizer extends LanguageRecognizer{
 	/*  GRAMMAR 3 : 
 	 *	<S> -> <A>a<B>b
 	 *	<A> -> <A>b | b
-	 *	<B> -> a<B> | a
+	 *	<B> -> a<B> | d
 	 *
 	 *  FIXED IMMEDIATE LEFT RECURSION:
 	 *  <S> -> <A>a<B>b
 	 *  <A> -> b<A1>
 	 *  <A1>-> b<A1> | null
-	 *  <B> -> a<B>  | a
+	 *  <B> -> a<B>  | d
 	 */
 	public Lang3Recognizer() 
 	{ 
@@ -76,6 +76,11 @@ public class Lang3Recognizer extends LanguageRecognizer{
 			getNextToken();
 			if (!B())
 				return true;
+			return true;
+		}
+		else if (getCurrentToken() == 'd')
+		{
+			getNextToken();
 			return true;
 		}
 		return false;
