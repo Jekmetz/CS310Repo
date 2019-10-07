@@ -1,67 +1,52 @@
 
 public class Lang1Recognizer extends LanguageRecognizer {
-
+	
+	private boolean firstCase;
 
 	public Lang1Recognizer() {
 		super();
 		setName("Language1");
+		firstCase = false;
 
 	}// end of constructor
+	/* <S> -> a<S>c<B> | <A> | b
+	 * <A> ->  c<A>  | d
+	 * <B> -> d | a<A>
+	 */
 
 	public boolean S() {
 		try {
-//			if (getCurrentToken() == ('a')) {
-//				getNextToken();
-//				if (S()) {
-//					if (getCurrentToken() == ('c')) {
-//						getNextToken();
-//						if (!B()) {
-//							return false;
-//						}
-//					} // checking for c
-//					else return false;
-//				} // if it fails
-//				else return false;
-//
-//			} else if (A()) {
-//				return true;
-//			} else if (getCurrentToken() == 'b') {
-//				getNextToken();
-//				return true;
-//			}
-//			
-//			if (isEndOfSentence()) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-			if(getCurrentToken() == 'b')
+			if(getCurrentToken() == 'a')
 			{
 				getNextToken();
-				if(isEndOfSentence()) return true;
-				if(getCurrentToken() == 'c')
+				firstCase = true;
+				if(S())
 				{
-					getNextToken();
-					if(!B()) return false;
-					if(isEndOfSentence()) return true;
+					if(getCurrentToken() == 'c') {
+						getNextToken();
+						if(B())
+							if(isEndOfSentence())
+								return true;
+					}
 				}
-				return false;
-			} else if(getCurrentToken() == 'a')
-			{
-				getNextToken();
-				if(S()) 
-					if(isEndOfSentence()) return true;
 				return false;
 			} else if(A())
 			{
-				if(getCurrentToken() == 'c')
+				if(firstCase)
 				{
-					getNextToken();
-					if(isEndOfSentence()) return true;
-					if(B())
-						if(isEndOfSentence()) return true;
-					return false;
-				}
+					firstCase = false;
+					return true;
+				}else if(isEndOfSentence()) return true;
+				else return false;
+			} else if(getCurrentToken() == 'b')
+			{
+				getNextToken();
+				if(firstCase) 	//If we are returning to the first case...
+				{
+					firstCase = false;	//Set the first case to false for future iterations...
+					return true;
+				} else if(isEndOfSentence()) return true;	//If we are not from the first case and it is the end of sentence...
+				else return false;	//If we are not in the first case and it is not the end of the sentence...
 			}
 			return false;
 
@@ -80,8 +65,7 @@ public class Lang1Recognizer extends LanguageRecognizer {
 				return false;
 			} // to check if there is a C and to see if the next token is nonTerminal
 			return true;
-		}
-		if (getCurrentToken() == 'd') {
+		}else if (getCurrentToken() == 'd') {
 			getNextToken();
 			return true;
 			

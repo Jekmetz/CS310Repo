@@ -196,7 +196,7 @@ public class LanguageTester {
 			while ((sent = br.readLine()) != null) // While has next... Also makes sent the new line
 			{
 				recognizer.loadSentence(sent);
-				System.out.println(String.format("Sentence: '%s'; Exists In Language?: %s", sent,
+				System.out.println(String.format("Sentence: '%s'; Exists In Language?: %s", sent.trim(),
 						recognizer.analyzeSentence() ? "Yes" : "No"));
 			}
 

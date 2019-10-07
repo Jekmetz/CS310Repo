@@ -43,7 +43,7 @@ public abstract class LanguageRecognizer {
 	 * @param string: sentence to load to the recognizer
 	 */
 	public void loadSentence(String string) {
-		sentence = string;
+		sentence = string.trim();
 		curIndex = 0;
 	}
 
