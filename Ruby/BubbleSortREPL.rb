@@ -17,7 +17,7 @@ end
 cont = true
 
 while cont
-    puts "Enter the positive integers you would like to sort delimited by spaces,"
+    puts "Enter the integers you would like to sort delimited by spaces,"
     puts "or 'quit' to exit"
     
     
@@ -40,8 +40,8 @@ while cont
     
     for i in 0..(num_array.length-1)
             
-        if !str_array[i].match(/[1-9][0-9]*/)
-            puts "only positive integers are allowed"
+        if !str_array[i].match(/^(\+|-)?[1-9][0-9]*$/)
+            puts "only integers are allowed"
             valid_entry = false
             break
         end
