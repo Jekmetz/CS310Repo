@@ -3,7 +3,3 @@
 
 #CLASSFILES
 bin/
-
-#FREAKING ECLIPSE
-*.classpath
-*.project
