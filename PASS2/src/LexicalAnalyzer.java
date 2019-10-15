@@ -11,6 +11,7 @@ public class LexicalAnalyzer {
 	//Init Global Vars
 	private CharClass charClass;
 	private char nextChar;
+	private String lexeme;
 	//IO
 	private boolean fileOpen;
 	private BufferedReader in;
@@ -19,13 +20,17 @@ public class LexicalAnalyzer {
 	{ 
 		charClass = null;
 		nextChar = 0;
+		lexeme = "";
 		fileOpen = false;
 		in = null;
 	}
 	
 	public void setFile(File file) throws IOException
 	{
+		//If the file is able to be read...
 		if(!file.canRead()) throw new IOException();
+		
+		//Initialize stream with the default keyset and file
 		InputStream inStream = new FileInputStream(file);
 		Reader reader= new InputStreamReader(inStream, Charset.defaultCharset());
 		in = new BufferedReader(reader);
@@ -34,48 +39,54 @@ public class LexicalAnalyzer {
 	}
 	
 	public boolean isFileOpen() { return fileOpen; }
+	public String getCurrentLexeme() { return lexeme; }
 	
 	public Token lex() {
+		//Initialze function vars
 		Token nextToken;
-		String lexeme = "";
+		lexeme = "";
+		
+		//Advance the stream until the first non-space
 		getNonBlank();
+		
 		switch(charClass) {
 		case DIGIT:
-			lexeme += nextChar;
-			getChar();
-			while(charClass == CharClass.DIGIT)
+			lexeme += nextChar;					//Add the current character to the lexeme
+			getChar();							//get the next char class
+			while(charClass == CharClass.DIGIT)	//while it is a digit...
 			{
-				lexeme += nextChar;
-				getChar();
+				lexeme += nextChar;				//add the character to the lexeme
+				getChar();						//get the next charater class
 			}
-			nextToken = Token.INT_LIT;
+			nextToken = Token.INT_LIT;			//Set the return value to integer literal
 			break;
 			
 		case LETTER:
-			lexeme += nextChar;
-			getChar();
-			while(charClass == CharClass.LETTER || charClass == CharClass.DIGIT)
+			lexeme += nextChar;			//Add the current character to the lexeme
+			getChar();					//get the next character class
+			while(charClass == CharClass.LETTER || charClass == CharClass.DIGIT)	//while it is a letter or a digit...
 			{
-				lexeme += nextChar;
-				getChar();
+				lexeme += nextChar;		//Add that to the current lexeme,
+				getChar();				//add that to the char
 			}
 			//Now we know that it is an identifier... test to see what kind
-			nextToken = lookupKeywords(lexeme);
+			nextToken = lookupKeywords(lexeme);	//Get the correct keyword
 			break;
 		
 		case UNKNOWN:
-			lexeme += nextChar;
-			getChar();
+			lexeme += nextChar;	//Add the current character to the lexeme
+			getChar();			//get the next char class
 			
 			//Yes, I know that it can only be one or two characters
 			//but what if at some point we would like to add a three character op? (EX: js ===)
+			//Regardless, while it is not a space or the end of the input...
 			while(charClass != CharClass.SPACE && charClass != CharClass.EOI)
 			{
-				lexeme += nextChar;
-				getChar();
+				lexeme += nextChar;		//Add the current character to the lexeme
+				getChar();				//get the next character class.
 			}
 			
-			nextToken = lookupOps(lexeme);
+			nextToken = lookupOps(lexeme);	//Get the correct operator
 			break;
 		
 		case EOI:
@@ -97,16 +108,16 @@ public class LexicalAnalyzer {
 		try{	
 			if((nextChar = (char)in.read()) != (char)-1)
 			{
-				if(Character.isAlphabetic(nextChar))
-					charClass = CharClass.LETTER;
-				else if (Character.isDigit(nextChar))
-					charClass = CharClass.DIGIT;
-				else if (Character.isWhitespace(nextChar))
-					charClass = CharClass.SPACE;
-				else charClass = CharClass.UNKNOWN;
+				if(Character.isAlphabetic(nextChar))	//If the character is in the alphabet...
+					charClass = CharClass.LETTER;		//character class is letter.
+				else if (Character.isDigit(nextChar))	//If the character is a digit...
+					charClass = CharClass.DIGIT;		//character class is a digit
+				else if (Character.isWhitespace(nextChar))	//If the character is whitespace...
+					charClass = CharClass.SPACE;			//character class is space
+				else charClass = CharClass.UNKNOWN;		//otherwise, it is unknown
 				
 				//System.out.println("char: " + nextChar + "-" + (int)nextChar); //use to understand character stream
-			} else
+			} else	//If it is the end of the file
 			{
 				closeFile();
 				charClass = CharClass.EOI;
