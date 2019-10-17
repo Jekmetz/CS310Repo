@@ -1,3 +1,8 @@
+/* Operation Pass the Class:
+ * Jay Kmetz, Ashly Lovings, Aron Ludwinski
+ * Programming Assignment 2: SyntaxAnalyzer
+ * Due: 10/25/2019
+ */
 
 public class SyntaxAnalyzer {
 	//Init vars
