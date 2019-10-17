@@ -1,3 +1,13 @@
+/* Operation Pass the Class:
+ * Jay Kmetz, Ashly Lovings, Aron Ludwinski
+ * Author(s): Jay Kmetz
+ * Programming Assignment 2: LexicalAnalyzer
+ * 
+ * Description: Splits up input into lexemes and Token Types
+ * 
+ * Due: 10/25/2019
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

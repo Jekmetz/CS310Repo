@@ -1,6 +1,10 @@
 /* Operation Pass the Class:
  * Jay Kmetz, Ashly Lovings, Aron Ludwinski
+ * Author(s): Jay Kmetz
  * Programming Assignment 2: Token
+ * 
+ * Description: Enumeration for token types
+ * 
  * Due: 10/25/2019
  */
 
