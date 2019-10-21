@@ -179,8 +179,8 @@ public class LexicalAnalyzer {
 		case "/":	t = Token.DIV_OP;		break;
 		case "=":	t = Token.EQ_OP;		break;
 		case "!=": 	t = Token.NEQ_OP;		break;
-		case "(":	t = Token.R_PAREN;		break;
-		case ")":	t = Token.L_PAREN;		break;
+		case "(":	t = Token.L_PAREN;		break;
+		case ")":	t = Token.R_PAREN;		break;
 		
 		default:	t = Token.ERROR;
 		}

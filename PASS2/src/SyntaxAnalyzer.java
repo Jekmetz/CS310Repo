@@ -30,64 +30,81 @@ public class SyntaxAnalyzer {
 	public boolean fileIsInLanguage(File filename) throws IOException
 	{
 		lexAn.setFile(filename);
-		
-		return program();
+		lex();
+		return sa_if();
 	}
 	
 	private boolean program()
 	{
 		//TODO: Aron
 		
-		return false;
+		return true;
 	}
 	
 	private boolean stmt_list()
 	{
 		//TODO: Aron
-		
-		return false;
+
+		return true;
 	}
 	
 	private boolean stmt()
 	{
 		//TODO: Aron
 		
-		return false;
+		return true;
 	}
 	
 	private boolean sa_if()
 	{
-		//TODO: Jay
+		if(nextToken != Token.IF_KEY) return false;		//if
+		lex();
+		if(nextToken != Token.L_PAREN) return false; 	// (
+		lex();
+		if(!bool()) return false;						// boolean expression
+		if(nextToken != Token.R_PAREN) return false;	// )
+		lex();
+		if(nextToken != Token.THEN_KEY) return false;	// then
+		lex();
+		if(!stmt_list()) return false;					// statement list
 		
-		return false;
+		if(nextToken == Token.ELSE_KEY)					// else statement
+		{
+			lex();
+			if(!stmt_list()) return false;				// statement list
+		}
+		
+		if(nextToken != Token.ENDIF_KEY) return false;	// endif
+		
+		return true;
 	}
 	
 	private boolean assign()
 	{
 		//TODO: Ashly
 		
-		return false;
+		return true;
 	}
 	
 	private boolean expr()
 	{
 		//TODO: Jay
 		
-		return false;
+		return true;
 	}
 	
 	private boolean term()
 	{
 		//TODO: Ashly
 		
-		return false;
+		return true;
 	}
 	
 	private boolean bool()
 	{
 		//TODO: Ashly
-		
-		return false;
+
+		return true;
 	}
 
 }

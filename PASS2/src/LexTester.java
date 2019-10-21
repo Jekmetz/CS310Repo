@@ -15,16 +15,15 @@ public class LexTester {
 	public static void main(String [] args)
 	{
 		LexicalAnalyzer lexAn = new LexicalAnalyzer();
+		SyntaxAnalyzer synAn = new SyntaxAnalyzer();
+		synAn.setLexAn(lexAn);
 		
 		try
 		{
-			lexAn.setFile(new File("test.txt"));
+			System.out.println("If works?: " + synAn.fileIsInLanguage(new File("test.txt")));
 		} catch (IOException e)
 		{
-			System.out.println("IOException: " + e.getLocalizedMessage());
+			System.out.println("IOExcception: " + e.getLocalizedMessage());
 		}
-		
-		while(lexAn.isFileOpen())
-			lexAn.lex();	//demonstration. Do not use like this :)
 	}
 }
