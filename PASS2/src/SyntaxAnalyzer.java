@@ -1,6 +1,6 @@
 /* Operation Pass the Class:
  * Jay Kmetz, Ashly Lovings, Aron Ludwinski
- * Author(s): Jay Kmetz
+ * Author(s): Jay Kmetz, Ashly Lovings Aron Ludwinski
  * Programming Assignment 2: SyntaxAnalyzer
  * 
  * Description: Uses the lexical analyzer to see if a specified block of 
@@ -15,6 +15,7 @@ import java.io.IOException;
 public class SyntaxAnalyzer {
 	//Init vars
 	LexicalAnalyzer lexAn;
+	Token nextToken;
 	
 	public SyntaxAnalyzer() {};
 	public SyntaxAnalyzer(LexicalAnalyzer lexAn)
@@ -24,6 +25,8 @@ public class SyntaxAnalyzer {
 	
 	public void setLexAn(LexicalAnalyzer lexAn) { this.lexAn = lexAn; }
 
+	private void lex() { nextToken = lexAn.lex(); }
+	
 	public boolean fileIsInLanguage(File filename) throws IOException
 	{
 		lexAn.setFile(filename);
