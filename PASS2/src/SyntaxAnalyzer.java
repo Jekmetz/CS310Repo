@@ -31,7 +31,7 @@ public class SyntaxAnalyzer {
 	{
 		lexAn.setFile(filename);
 		lex();
-		return sa_if();
+		return program();
 	}
 	
 	private boolean program()
@@ -88,7 +88,15 @@ public class SyntaxAnalyzer {
 	
 	private boolean expr()
 	{
-		//TODO: Jay
+		if(!term()) return false;	// term
+		
+		// {(+ | - | * | /)<term>}
+		while(nextToken == Token.ADD_OP || nextToken == Token.SUB_OP || 
+				nextToken == Token.MULT_OP || nextToken == Token.DIV_OP)
+		{
+			lex();
+			if(!term()) return false;
+		}
 		
 		return true;
 	}
