@@ -116,6 +116,11 @@ public class LexTester {
 				+ "input file - Input the name of a file and the language to check it against");
 	}
 	
+	/**
+	 * Gets a file from a user and makes sure that file exists
+	 * @param inStream - Scanner to grab user input from
+	 * @return sanitized file
+	 */
 	public static File getFileFromUser(Scanner inStream) {
 		File outputFile = null;
 
@@ -140,6 +145,11 @@ public class LexTester {
 		return outputFile;
 	}
 	
+	/**
+	 * Prints out contents of file and then parses file with specified Sytax Analyzer
+	 * @param synAn - Syntax Analyzer to parse file with
+	 * @param file - File to parse
+	 */
 	public static void processFile(SyntaxAnalyzer synAn, File file)
 	{
 		String sent = null;
