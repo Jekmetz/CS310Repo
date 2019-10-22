@@ -24,7 +24,7 @@ public class SyntaxAnalyzer {
 	}
 	
 	public void setLexAn(LexicalAnalyzer lexAn) { this.lexAn = lexAn; }
-
+	
 	private void lex() { nextToken = lexAn.lex(); }
 	
 	public boolean fileIsInLanguage(File filename) throws IOException
@@ -37,21 +37,34 @@ public class SyntaxAnalyzer {
 	private boolean program()
 	{
 		//TODO: Aron
-		
+		if(nextToken != Token.PROCEDURE_KEY) return false;	//procedure
+		lex();
+		if(nextToken != Token.IDENT) return false;			//name
+		lex();
+		if(nextToken != Token.BEGIN_KEY) return false; 		//begin
+		lex();
+		if(!stmt_list()) return false;						//statement list
+		if(nextToken != Token.END_KEY) return false;		//end
+		lex();
+		if(nextToken != Token.SCOLON_OP) return false;		//;
 		return true;
 	}
 	
 	private boolean stmt_list()
 	{
 		//TODO: Aron
-
+		if(!stmt()) return false;							//statement
+		if(nextToken != Token.SCOLON_OP) return false;		//;
+		lex();
+		if(nextToken != Token.END_KEY)						//end
+			if (!stmt_list()) return false;					//statement list
 		return true;
 	}
 	
 	private boolean stmt()
 	{
 		//TODO: Aron
-		
+		if(!assign() && !sa_if()) return false;	//<var>:=<expr> or if statement
 		return true;
 	}
 	
