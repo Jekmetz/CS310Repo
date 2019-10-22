@@ -22,6 +22,8 @@ public class LexicalAnalyzer {
 	private CharClass charClass;
 	private char nextChar;
 	private String lexeme;
+	private int lineNo, position;
+	
 	//IO
 	private boolean fileOpen;
 	private BufferedReader in;
@@ -30,6 +32,8 @@ public class LexicalAnalyzer {
 	{ 
 		charClass = null;
 		nextChar = 0;
+		lineNo = 0;
+		position = 0;
 		lexeme = "";
 		fileOpen = false;
 		in = null;
@@ -37,6 +41,10 @@ public class LexicalAnalyzer {
 	
 	public void setFile(File file) throws IOException
 	{
+		//If we have not closed the previous file... close it
+		if(in != null && in.ready())
+			in.close();
+		
 		//If the file is able to be read...
 		if(!file.canRead()) throw new IOException();
 		
@@ -47,6 +55,9 @@ public class LexicalAnalyzer {
 		fileOpen = true;
 		getChar();	//Load the first character
 	}
+	
+	public int getLineNo() { return lineNo; }
+	public int getPosition() { return position; }
 	
 	public boolean isFileOpen() { return fileOpen; }
 	public String getCurrentLexeme() { return lexeme; }
@@ -90,7 +101,7 @@ public class LexicalAnalyzer {
 			//Yes, I know that it can only be one or two characters
 			//but what if at some point we would like to add a three character op? (EX: js ===)
 			//Regardless, while it is not a space or the end of the input...
-			while(charClass != CharClass.SPACE && charClass != CharClass.EOI)
+			while(charClass == CharClass.UNKNOWN)
 			{
 				lexeme += nextChar;		//Add the current character to the lexeme
 				getChar();				//get the next character class.
@@ -118,6 +129,13 @@ public class LexicalAnalyzer {
 		try{	
 			if((nextChar = (char)in.read()) != (char)-1)
 			{
+				if(nextChar == '\n')
+				{
+					lineNo++;
+					position = 0;
+				}
+				position++;
+				
 				if(Character.isAlphabetic(nextChar))	//If the character is in the alphabet...
 					charClass = CharClass.LETTER;		//character class is letter.
 				else if (Character.isDigit(nextChar))	//If the character is a digit...
@@ -188,11 +206,11 @@ public class LexicalAnalyzer {
 		return t;
 	}
 	
-	private void closeFile()
+	public void closeFile()
 	{
 		try {
 			in.close();
-		} catch (IOException e) 
+		} catch (Exception e) 
 		{ }
 		fileOpen = false;
 	}

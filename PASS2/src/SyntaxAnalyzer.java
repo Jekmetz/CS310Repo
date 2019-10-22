@@ -27,6 +27,19 @@ public class SyntaxAnalyzer {
 	
 	private void lex() { nextToken = lexAn.lex(); }
 	
+	public void printOutError(String errMsg)
+	{
+		lexAn.closeFile();
+		System.out.println(
+			String.format(
+				"Line: %d, Position: %d\nError: %s", 
+			lexAn.getLineNo(),
+			lexAn.getPosition(),
+			errMsg
+			)
+		);
+	}
+	
 	public boolean fileIsInLanguage(File filename) throws IOException
 	{
 		lexAn.setFile(filename);
@@ -70,15 +83,36 @@ public class SyntaxAnalyzer {
 	
 	private boolean sa_if()
 	{
-		if(nextToken != Token.IF_KEY) return false;		//if
+		if(nextToken != Token.IF_KEY)	//if
+		{
+			printOutError("Missing if keyword!");
+			return false;
+		}
 		lex();
-		if(nextToken != Token.L_PAREN) return false; 	// (
+		
+		if(nextToken != Token.L_PAREN)	// (
+		{
+			printOutError("Missing Left Parenthesis after if!");
+			return false;
+		}
 		lex();
-		if(!bool()) return false;						// boolean expression
-		if(nextToken != Token.R_PAREN) return false;	// )
+		
+		if(!bool()) return false;		// boolean expression
+		
+		if(nextToken != Token.R_PAREN)  // )
+		{
+			printOutError("Missing Right Parenthesis after boolean expression!");
+			return false;	
+		}
 		lex();
-		if(nextToken != Token.THEN_KEY) return false;	// then
+		
+		if(nextToken != Token.THEN_KEY) // )
+		{
+			printOutError("Missing Then Keyword for If statement!");
+			return false;
+		}
 		lex();
+		
 		if(!stmt_list()) return false;					// statement list
 		
 		if(nextToken == Token.ELSE_KEY)					// else statement
@@ -87,7 +121,11 @@ public class SyntaxAnalyzer {
 			if(!stmt_list()) return false;				// statement list
 		}
 		
-		if(nextToken != Token.ENDIF_KEY) return false;	// endif
+		if(nextToken != Token.ENDIF_KEY)	// endif
+		{
+			printOutError("Missing End if Keyword!");
+			return false;	
+		}
 		
 		return true;
 	}
