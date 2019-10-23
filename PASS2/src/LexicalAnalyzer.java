@@ -33,7 +33,7 @@ public class LexicalAnalyzer {
 		charClass = null;
 		nextChar = 0;
 		lineNo = 0;
-		position = 0;
+		position = 1;
 		lexeme = "";
 		fileOpen = false;
 		in = null;
@@ -41,10 +41,6 @@ public class LexicalAnalyzer {
 	
 	public void setFile(File file) throws IOException
 	{
-		//If we have not closed the previous file... close it
-		if(in != null && in.ready())
-			in.close();
-		
 		//If the file is able to be read...
 		if(!file.canRead()) throw new IOException();
 		
@@ -53,6 +49,8 @@ public class LexicalAnalyzer {
 		Reader reader= new InputStreamReader(inStream, Charset.defaultCharset());
 		in = new BufferedReader(reader);
 		fileOpen = true;
+		position = 1;
+		lineNo = 0;
 		getChar();	//Load the first character
 	}
 	

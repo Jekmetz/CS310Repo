@@ -80,6 +80,8 @@ public class LexTester {
 			switch (progstate) {
 			case INPUT_FILE:
 				langFile = getFileFromUser(scanner); // Get valid file to scan
+				//Close file if another one is still open
+				lexAn.closeFile();
 				processFile(synAn,langFile);
 				break;
 
