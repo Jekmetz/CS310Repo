@@ -132,7 +132,17 @@ public class SyntaxAnalyzer {
 	
 	private boolean assign()
 	{
+		//<var> == Token.Ident
+		//printOutError when you check for next token
+		//<var> = <expr>
 		//TODO: Ashly
+		
+		if(nextToken != Token.IDENT) { printOutError("Missing var"); return false;}
+		lex();
+		if(nextToken != Token.EQ_OP) {printOutError("Missing assignment"); return false;}
+		lex();
+		if(!expr()) {return false;}
+		
 		
 		return true;
 	}
@@ -154,15 +164,30 @@ public class SyntaxAnalyzer {
 	
 	private boolean term()
 	{
+		//<var> | <int>
 		//TODO: Ashly
+		
+		if(nextToken != Token.IDENT || nextToken != Token.INT_LIT) {printOutError("Missing var"); return false;} //AM I RIGHT????
+		lex();
+		
+		
 		
 		return true;
 	}
 	
 	private boolean bool()
 	{
+		//<var>(= | !=) (<int> | <var>)
 		//TODO: Ashly
 
+		if(nextToken != Token.IDENT) {printOutError("Missing var"); return false;}
+		lex();
+		if(nextToken != Token.EQ_OP || nextToken != Token.NEQ_OP) {printOutError("Missing equals or not equals operation"); return false;}
+		lex();
+		
+		if(nextToken != Token.INT_LIT) {return false;}
+		
+		
 		return true;
 	}
 
