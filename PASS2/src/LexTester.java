@@ -115,7 +115,7 @@ public class LexTester {
 		System.out.println(
 				  "help       - Display this help message\n" 
 		        + "exit       - Exit out of the program\n"
-				+ "input file - Input the name of a file and the language to check it against");
+				+ "input file - Input the name of a file to check against the language");
 	}
 	
 	/**
