@@ -3,3 +3,7 @@
 
 #CLASSFILES
 bin/
+
+*.exe
+*.o
+*.ali
