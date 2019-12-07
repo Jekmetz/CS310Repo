@@ -42,13 +42,16 @@
 		integer :: i,j,v !i and j are counters... v is the current value
 		
 		!your standard every day insertion sort :)
-		do i = 2, 100, 1
-			v = arr(i)
-			j = i - 1
-			do while (j >= 0 .and. arr(j) > v)
-				arr(j+1) = arr(j)
+		do i = 2, 100, 1 !i goes from second element to last element
+			v = arr(i) !set current value
+			j = i - 1  !j points at value before current value
+			
+			!while j has not reached the beginning and arr(j) is still
+			!bigger than the current value 
+			do while (j >= 1 .and. arr(j) > v)
+				arr(j+1) = arr(j) !swap that value
 				j = j-1
 			end do
-			arr(j+1) = v
+			arr(j+1) = v !put v over the dupe value
 		end do
 	end subroutine sortArr
