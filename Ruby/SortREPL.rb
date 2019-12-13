@@ -16,9 +16,7 @@ def bubbleSort(ia)
     for i in 0..(ia.length-1)
         for j in 0..(ia.length-i-2)
             if (ia[j] > ia[j+1])
-                t = ia[j]
-                ia[j] = ia[j+1]
-                ia[j+1] = t
+                ia[j],ia[j+1]  =  ia[j+1],ia[j]
             end
         end
     end
@@ -137,15 +135,11 @@ def partition(ia, left, h)
             i += 1      #add one to the lowest position counter...
 
             #swap those two values
-            temp = ia[i]
-            ia[i] = ia[j]
-            ia[j] = temp
-        end
+            ia[i],ia[j]  =  ia[j],ia[i]
+	end
     end
     #swap so partition is in the middle
-    temp = ia[i+1]
-    ia[i+1] = ia[h]
-    ia[h] = temp
+    ia[i+1],ia[h]  =  ia[h],ia[i+1]
 
     return (i+1)
 end
